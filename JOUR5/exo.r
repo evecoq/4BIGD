@@ -1,3 +1,5 @@
+
+
 library(dplyr) 
 library(tidyverse)
 library(readr)
@@ -30,3 +32,25 @@ df <- df[!is.na(df$primaryName), ]
 # Convert birthYear and deathYear to integers
 df$birthYear <- as.integer(df$birthYear)
 df$deathYear <- as.integer(df$deathYear)
+
+# Standardize or clean data as required (e.g., removing leading/trailing spaces, formatting).
+# Split the Departments column into separate columns
+
+# counting the occurrences of comma in primaryProfession column
+count_p <- str_count(df$primaryProfession, ",")
+max_comma_p <- max(count_p)
+print (max_comma_p)
+
+# counting the occurrences of comma in knownForTitles column
+count_t <- str_count(df$knownForTitles, ",")
+max_comma_t <- max(count_t)
+print (max_comma_t)
+
+#Separate profession and titles columns
+df <- df %>%
+  separate(primaryProfession, into = paste0("Profession", 1:3), sep = ",", fill = "right")
+df <- df %>%
+  separate(knownForTitles, into = paste0("knownForTitles", 1:4), sep = ",", fill = "right")
+
+#Removing leading/trailing spaces from all character columns in the data frame
+df <- df %>% mutate(across(where(is.character), trimws))
