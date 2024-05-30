@@ -21,3 +21,12 @@ summary(df)
 colSums(is.na(df)) #La sortie de cette commnade indique qu'il y a pas de valeur manquantes, pourtant 
 sum(duplicated(df))
 str(df)
+
+# Handle missing values appropriately by either imputing them or removing rows/columns.
+# Remove rows with NA values in the 'primaryName' column (48 rows)
+df <- df[!is.na(df$primaryName), ]
+
+# Convert data types of variables if necessary (e.g., date columns) 
+# Convert birthYear and deathYear to integers
+df$birthYear <- as.integer(df$birthYear)
+df$deathYear <- as.integer(df$deathYear)
