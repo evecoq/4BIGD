@@ -54,3 +54,6 @@ df <- df %>%
 
 #Removing leading/trailing spaces from all character columns in the data frame
 df <- df %>% mutate(across(where(is.character), trimws))
+
+#Export dataset as csv
+write.csv(df, "imdb_dataset.csv", row.names=FALSE)
