@@ -53,5 +53,15 @@ treemap(t_frequency,
 )
 dev.off()
 
-          # Count number of presence of each movie in dataset (nb of person that took part in)
+# Count number of presence of each movie in dataset (nb of person that took part in)
 agg_t_fr <- aggregate(t_frequency$Freq, by=list(t_frequency$category), FUN=length)
+
+# Plotting a stacked bar plot with ggplot2 using log scale for the y-axis
+ggplot(prof_nb, aes(x = factor(century), y = Count, fill = Profession1)) +
+  geom_bar(stat = "identity") +
+  scale_y_log10() +  # Apply log scale to y-axis
+  labs(title = "Profession Trends Over Centuries",
+       x = "Century",
+       y = "Count of Professions",
+       fill = "Profession") +
+  theme_minimal()
