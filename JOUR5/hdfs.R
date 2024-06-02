@@ -1,3 +1,4 @@
+install.packages("rhdfs")
 library(rhdfs)
 
 # Connect to the HDFS file system
