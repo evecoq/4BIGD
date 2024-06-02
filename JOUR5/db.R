@@ -1,4 +1,4 @@
-# Installer et charger les packages nécessaires
+# Install and load necessary packages
 install.packages("DBI")
 install.packages("RSQLite")
 install.packages("readr")
@@ -7,13 +7,13 @@ library(DBI)
 library(RSQLite)
 library(readr)
 
-# Lire le fichier CSV
+# Read the CSV file
 df <- read_csv("imdb_dataset.csv")
 
-# Connexion à SQLite et création de la table
+# Connect to SQLite and create the table
 con <- dbConnect(RSQLite::SQLite(), "imdb_database.db")
 
-# Créer une table IMDb
+# Create an IMDb table
 dbExecute(con, "
   CREATE TABLE IF NOT EXISTS IMDb (
     nconst TEXT,
@@ -30,12 +30,12 @@ dbExecute(con, "
   )
 ")
 
-# Utiliser dbWriteTable pour insérer les données
+# Use dbWriteTable to insert the data
 dbWriteTable(con, "IMDb", df, row.names = FALSE, append = TRUE)
 
-# Vérifier que les données ont été insérées
+# Check if the data has been inserted
 result <- dbGetQuery(con, "SELECT * FROM IMDb LIMIT 5")
 print(result)
 
-# Fermer la connexion
+# Close the connection
 dbDisconnect(con)
